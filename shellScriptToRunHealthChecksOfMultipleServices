@@ -1,0 +1,43 @@
+#!/bin/bash
+
+rm -rf success.txt
+rm -rf failure.txt
+
+for service in $SERVICE_NAME
+do
+echo "servicename:" $service
+echo "Environment:" $ENV
+echo $service: "status"
+echo "======================"
+curl https://${service}.${ENV}.ocean.com:8443/admin/health
+curl https://${service}.${ENV}.ocean.com:8443/admin/health > status.txt
+cat status.txt
+status=$(cat status.txt | grep -o "UP" | head -n1)
+
+echo "Printing the status value!!!!!!!!!!!!!!!!!"
+echo $status
+echo "Printing the status value!!!!!!!!!!!!!!!!!"
+
+
+if [ $status == "UP" ]
+then 
+echo $service >> success.txt
+else
+echo $service >> failure.txt
+fi
+done
+if [ -e success.txt ]
+then
+echo " *****************Services with successful healthchecks****************** "
+cat success.txt
+else
+echo "Nothing in success.txt"
+fi
+if [ -e failure.txt ]
+then
+echo " *****************Services with failed healthchecks****************** "
+cat failure.txt
+else
+echo "Nothing in failure.txt"
+fi
+
