@@ -1,0 +1,42 @@
+#!/bin/bash
+count=$(wc -l swarmServices.txt | awk '{print $1}')
+echo $count
+for ((i=1;i<=$count;i++))
+do
+serviceName=$(awk 'NR=='$i'' swarmServices.txt)
+#echo "******************************************************************************************"
+#echo "***************************ServiceName*********************************"
+#echo $serviceName
+servicePresence=$(grep $serviceName inputList.txt > /dev/null;echo $?)
+curlUrl=$(grep $serviceName inputList.txt | awk -F "=" '{print $2}')
+#echo $servicePresence
+if [ $servicePresence == 0 ]
+then
+#echo "$serviceName" >> servicesFoundInswarm.txt
+#echo $serviceName
+echo "*******************************CurlUrl****************************************"
+echo $curlUrl
+#echo "*****************************************HealthCheck Status********************************"
+status=$(curl -s $curlUrl)
+#echo "*****************************************Status********************************************"
+#echo $status
+FilteredStatus=$(echo $status | grep -o 'UP\|Green' | head -n1)
+echo "***************************************FilteredStatus************************************************************"
+if [[ $FilteredStatus == "UP" || $FilteredStatus == "Green" ]]
+then
+echo "service status is successful"
+echo $status
+echo ""
+echo "Error Status:N/A"
+else
+echo "Service status:N/A"
+echo "Error Status"
+echo $status
+echo ""
+fi
+echo "*******************************************************************************************"
+else
+echo "Service not found in masterFile"
+#echo "$serviceName" >> servicesNotFoundInSwarm.txt
+fi
+done
