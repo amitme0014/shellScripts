@@ -1,0 +1,7 @@
+#!/bin/bash
+printf "%-5s %-10s %-10s\n" No. Name Mark    #"-" means allignment toward left,unpresence of - will align it towards right
+#5,10,10 are width for No. Name Mark, means for name width reserved is 10, if name is less than 10 it will fill the rest of character with spaces
+printf "%-5s %-10s %-4.2f\n" 1 amit 81.8765 #"%-4.2 means after decimal, it will round up till two digits"
+printf "%-5s %-10s %-4.2f\n" 2 ankit 84.987
+printf "%-5s %-10s %-4.2f\n" 3 rajdeep 76.8
+printf "%-5s %-10s %-4.2f\n" 4 naveen 5.7
