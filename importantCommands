@@ -1,3 +1,5 @@
+docker image ls | awk '{if (NR!=1) {print $3}}' // This will print the 3rd column removing the first line from top ..NR represents
+number of record,row etc
 find . -name '*.pem' -print  //This will search all the file ending with .pem extension in present directory
 egrep -R "COUCHDB_BUCKET_PASSWORD" --include=*.* .  //This search all the files which have couchdb_bucket_password keywords
 du -sh */ | grep [0-9]G          ***********To print directory taking more than 1 gb space
