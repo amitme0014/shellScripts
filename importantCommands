@@ -4,3 +4,6 @@ docker rmi $(docker image ls | awk '{if (NR!=1) {print $3}}') // This will autom
 find . -name '*.pem' -print  //This will search all the file ending with .pem extension in present directory
 egrep -R "COUCHDB_BUCKET_PASSWORD" --include=*.* .  //This search all the files which have couchdb_bucket_password keywords
 du -sh */ | grep [0-9]G          ***********To print directory taking more than 1 gb space
+
+Using for loop in terminal only witshout using shell script
+ for i in $(ls);do kubectl apply -f $i;done
