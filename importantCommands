@@ -7,3 +7,6 @@ du -sh */ | grep [0-9]G          ***********To print directory taking more than 
 
 Using for loop in terminal only witshout using shell script
  for i in $(ls);do kubectl apply -f $i;done
+
+#################### openssl command to check the cert expiry date ################################33
+ echo | openssl s_client -showcerts -servername gnupg.org -connect gnupg.org:44
